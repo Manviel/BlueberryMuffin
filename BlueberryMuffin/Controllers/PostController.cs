@@ -5,7 +5,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using BlueberryMuffin.Models;
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace BlueberryMuffin.Controllers
 {
@@ -52,6 +51,45 @@ namespace BlueberryMuffin.Controllers
             }
 
             return item;
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<Post>> PostItem(Post item)
+        {
+            _context.Posts.Add(item);
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction(nameof(GetPost), new { id = item.Id }, item);
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutItem(long id, Post item)
+        {
+            if (id != item.Id)
+            {
+                return BadRequest();
+            }
+
+            _context.Entry(item).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteItem(long id)
+        {
+            var item = await _context.Posts.FindAsync(id);
+
+            if (item == null)
+            {
+                return NotFound();
+            }
+
+            _context.Posts.Remove(item);
+            await _context.SaveChangesAsync();
+
+            return NoContent();
         }
     }
 }

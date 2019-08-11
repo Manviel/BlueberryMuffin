@@ -21,7 +21,8 @@ namespace BlueberryMuffin
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<PostContext>(opt =>
-               opt.UseInMemoryDatabase("Posts"));  
+               opt.UseInMemoryDatabase("Posts"));
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
