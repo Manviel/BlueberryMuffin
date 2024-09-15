@@ -1,3 +1,3 @@
-This project was bootstrapped with .NET Core
+# Web API Development with ASP.NET Core 8
 
-Tutorial: https://docs.microsoft.com/ru-ru/aspnet/core/tutorials/first-web-api?view=aspnetcore-2.1&tabs=visual-studio
+This project was bootstrapped with .NET Core
