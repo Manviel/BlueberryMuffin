@@ -1,0 +1,6 @@
+@BlueberryMuffin_HostAddress = http://localhost:5116
+
+GET {{BlueberryMuffin_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
