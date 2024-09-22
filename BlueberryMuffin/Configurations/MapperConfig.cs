@@ -9,6 +9,10 @@ namespace BlueberryMuffin.Configurations
         public MapperConfig()
         {
             CreateMap<Country, CreateCountry>().ReverseMap();
+            CreateMap<Country, GetCountry>().ReverseMap();
+            CreateMap<Country, CountryDetails>().ReverseMap();
+
+            CreateMap<Hotel, GetHotel>().ReverseMap();
         }
     }
 }

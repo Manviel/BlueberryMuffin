@@ -21,23 +21,25 @@ namespace BlueberryMuffin.Controllers
 
         // GET: api/Countries
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Country>>> GetCountries()
+        public async Task<ActionResult<IEnumerable<GetCountry>>> GetCountries()
         {
-            return await _context.Countries.ToListAsync();
+            var countries = await _context.Countries.ToListAsync();
+
+            return _mapper.Map<List<GetCountry>>(countries);
         }
 
         // GET: api/Countries/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Country>> GetCountry(int id)
+        public async Task<ActionResult<CountryDetails>> GetCountry(int id)
         {
-            var country = await _context.Countries.FindAsync(id);
+            var country = await _context.Countries.Include(q => q.Hotels).FirstOrDefaultAsync(q => q.Id == id);
 
             if (country == null)
             {
                 return NotFound();
             }
 
-            return country;
+            return _mapper.Map<CountryDetails>(country);
         }
 
         // PUT: api/Countries/5
