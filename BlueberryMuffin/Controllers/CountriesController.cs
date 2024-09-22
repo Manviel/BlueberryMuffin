@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using BlueberryMuffin.Data;
 using BlueberryMuffin.Models;
+using AutoMapper;
 
 namespace BlueberryMuffin.Controllers
 {
@@ -10,10 +11,12 @@ namespace BlueberryMuffin.Controllers
     public class CountriesController : ControllerBase
     {
         private readonly BlueberryDbContext _context;
+        private readonly IMapper _mapper;
 
-        public CountriesController(BlueberryDbContext context)
+        public CountriesController(BlueberryDbContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         // GET: api/Countries
@@ -69,10 +72,11 @@ namespace BlueberryMuffin.Controllers
         }
 
         // POST: api/Countries
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Country>> PostCountry(Country country)
+        public async Task<ActionResult<Country>> PostCountry(CreateCountry createCountry)
         {
+            var country = _mapper.Map<Country>(createCountry);
+
             _context.Countries.Add(country);
             await _context.SaveChangesAsync();
 
