@@ -2,7 +2,7 @@
 
 namespace BlueberryMuffin.Data
 {
-    public class CreateCountry
+    public abstract class BaseCountry
     {
         [Required]
         public string Name { get; set; }
