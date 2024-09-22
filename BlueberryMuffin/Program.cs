@@ -1,4 +1,5 @@
 using BlueberryMuffin.Configurations;
+using BlueberryMuffin.Contracts;
 using BlueberryMuffin.Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -21,6 +22,9 @@ builder.Services.AddCors(options =>
 });
 
 builder.Services.AddAutoMapper(typeof(MapperConfig));
+
+builder.Services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
+builder.Services.AddScoped<ICountriesRepositiry, CountriesRepository>();
 
 var app = builder.Build();
 

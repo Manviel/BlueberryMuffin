@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using BlueberryMuffin.Data;
 using BlueberryMuffin.Models;
 using AutoMapper;
+using BlueberryMuffin.Contracts;
 
 namespace BlueberryMuffin.Controllers
 {
@@ -10,12 +11,12 @@ namespace BlueberryMuffin.Controllers
     [ApiController]
     public class CountriesController : ControllerBase
     {
-        private readonly BlueberryDbContext _context;
+        private readonly ICountriesRepositiry _countriesRepositiry;
         private readonly IMapper _mapper;
 
-        public CountriesController(BlueberryDbContext context, IMapper mapper)
+        public CountriesController(ICountriesRepositiry countriesRepositiry, IMapper mapper)
         {
-            _context = context;
+            _countriesRepositiry = countriesRepositiry;
             _mapper = mapper;
         }
 
@@ -23,7 +24,7 @@ namespace BlueberryMuffin.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<GetCountry>>> GetCountries()
         {
-            var countries = await _context.Countries.ToListAsync();
+            var countries = await _countriesRepositiry.GetAllAsync();
 
             return _mapper.Map<List<GetCountry>>(countries);
         }
@@ -32,7 +33,7 @@ namespace BlueberryMuffin.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<CountryDetails>> GetCountry(int id)
         {
-            var country = await _context.Countries.Include(q => q.Hotels).FirstOrDefaultAsync(q => q.Id == id);
+            var country = await _countriesRepositiry.GetDetails(id);
 
             if (country == null)
             {
@@ -51,7 +52,7 @@ namespace BlueberryMuffin.Controllers
                 return BadRequest();
             }
 
-            var country = await _context.Countries.FindAsync(id);
+            var country = await _countriesRepositiry.GetAsync(id);
 
             if (country == null)
             {
@@ -62,11 +63,11 @@ namespace BlueberryMuffin.Controllers
 
             try
             {
-                await _context.SaveChangesAsync();
+                await _countriesRepositiry.UpdateAsync(country);
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!CountryExists(id))
+                if (!await CountryExists(id))
                 {
                     return NotFound();
                 }
@@ -85,8 +86,7 @@ namespace BlueberryMuffin.Controllers
         {
             var country = _mapper.Map<Country>(createCountry);
 
-            _context.Countries.Add(country);
-            await _context.SaveChangesAsync();
+            await _countriesRepositiry.AddAsync(country);
 
             return CreatedAtAction("GetCountry", new { id = country.Id }, country);
         }
@@ -95,21 +95,21 @@ namespace BlueberryMuffin.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCountry(int id)
         {
-            var country = await _context.Countries.FindAsync(id);
+            var country = await _countriesRepositiry.GetAsync(id);
+
             if (country == null)
             {
                 return NotFound();
             }
 
-            _context.Countries.Remove(country);
-            await _context.SaveChangesAsync();
+            await _countriesRepositiry.DeleteAsync(id);
 
             return NoContent();
         }
 
-        private bool CountryExists(int id)
+        private async Task<bool> CountryExists(int id)
         {
-            return _context.Countries.Any(e => e.Id == id);
+            return await _countriesRepositiry.Exists(id);
         }
     }
 }

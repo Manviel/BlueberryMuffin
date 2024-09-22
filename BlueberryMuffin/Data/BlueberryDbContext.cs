@@ -7,7 +7,6 @@ namespace BlueberryMuffin.Data
     {
         public BlueberryDbContext(DbContextOptions options) : base(options)
         {
-
         }
 
         public DbSet<Hotel> Hotels { get; set; }
