@@ -1,10 +1,10 @@
-﻿namespace BlueberryMuffin.Models
+﻿using BlueberryMuffin.Data;
+
+namespace BlueberryMuffin.Models
 {
-    public class Country
+    public class Country : BaseCountry
     {
         public int Id { get; set; }
-        public string Name { get; set; }
-        public string CodeName { get; set; }
 
         public virtual IList<Hotel> Hotels { get; set; }
     }
