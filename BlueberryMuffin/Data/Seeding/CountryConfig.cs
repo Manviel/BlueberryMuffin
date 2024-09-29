@@ -1,13 +1,12 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
+﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore;
 using BlueberryMuffin.Models;
 
 namespace BlueberryMuffin.Data.Seeding
 {
-    public class CountryConfig : IEntityTypeConfiguration<IdentityRole>
+    public class CountryConfig : IEntityTypeConfiguration<Country>
     {
-        public void Configure(EntityTypeBuilder<IdentityRole> builder)
+        public void Configure(EntityTypeBuilder<Country> builder)
         {
             builder.HasData(
                 new Country { Id = 1, Name = "Jamaica", CodeName = "JM" },

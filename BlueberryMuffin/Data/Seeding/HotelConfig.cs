@@ -1,13 +1,12 @@
 ﻿using BlueberryMuffin.Models;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore;
 
 namespace BlueberryMuffin.Data.Seeding
 {
-    public class HotelConfig : IEntityTypeConfiguration<IdentityRole>
+    public class HotelConfig : IEntityTypeConfiguration<Hotel>
     {
-        public void Configure(EntityTypeBuilder<IdentityRole> builder)
+        public void Configure(EntityTypeBuilder<Hotel> builder)
         {
             builder.HasData(
                 new Hotel { Id = 1, Name = "Courtleigh Hotel & Suites The", Address = "Kingston", CountryId = 1, Rating = 4.5 },
