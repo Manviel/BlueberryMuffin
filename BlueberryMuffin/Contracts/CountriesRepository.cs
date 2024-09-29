@@ -4,12 +4,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BlueberryMuffin.Contracts
 {
-    public interface ICountriesRepositiry : IBaseRepository<Country>
+    public interface ICountriesRepository : IBaseRepository<Country>
     {
         Task<Country> GetDetails(int id);
     }
 
-    public class CountriesRepository : BaseRepository<Country>, ICountriesRepositiry
+    public class CountriesRepository : BaseRepository<Country>, ICountriesRepository
     {
         private readonly BlueberryDbContext _context;
 

@@ -13,6 +13,7 @@ namespace BlueberryMuffin.Configurations
             CreateMap<Country, CountryDetails>().ReverseMap();
 
             CreateMap<Hotel, GetHotel>().ReverseMap();
+            CreateMap<Hotel, CreateHotel>().ReverseMap();
         }
     }
 }

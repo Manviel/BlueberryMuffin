@@ -11,10 +11,10 @@ namespace BlueberryMuffin.Controllers
     [ApiController]
     public class CountriesController : ControllerBase
     {
-        private readonly ICountriesRepositiry _countriesRepositiry;
+        private readonly ICountriesRepository _countriesRepositiry;
         private readonly IMapper _mapper;
 
-        public CountriesController(ICountriesRepositiry countriesRepositiry, IMapper mapper)
+        public CountriesController(ICountriesRepository countriesRepositiry, IMapper mapper)
         {
             _countriesRepositiry = countriesRepositiry;
             _mapper = mapper;

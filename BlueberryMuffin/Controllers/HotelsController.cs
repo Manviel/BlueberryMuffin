@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using BlueberryMuffin.Data;
 using BlueberryMuffin.Models;
+using BlueberryMuffin.Contracts;
+using AutoMapper;
+using BlueberryMuffin.Data;
 
 namespace BlueberryMuffin.Controllers
 {
@@ -9,53 +11,63 @@ namespace BlueberryMuffin.Controllers
     [ApiController]
     public class HotelsController : ControllerBase
     {
-        private readonly BlueberryDbContext _context;
+        private readonly IHotelsRepository _hotelsRepository;
+        private readonly IMapper _mapper;
 
-        public HotelsController(BlueberryDbContext context)
+        public HotelsController(IHotelsRepository hotelsRepository, IMapper mapper)
         {
-            _context = context;
+            _hotelsRepository = hotelsRepository;
+            _mapper = mapper;
         }
 
         // GET: api/Hotels
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Hotel>>> GetHotels()
+        public async Task<ActionResult<IEnumerable<GetHotel>>> GetHotels()
         {
-            return await _context.Hotels.ToListAsync();
+            var hotels = await _hotelsRepository.GetAllAsync();
+
+            return _mapper.Map<List<GetHotel>>(hotels);
         }
 
         // GET: api/Hotels/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Hotel>> GetHotel(int id)
+        public async Task<ActionResult<GetHotel>> GetHotel(int id)
         {
-            var hotel = await _context.Hotels.FindAsync(id);
+            var hotel = await _hotelsRepository.GetAsync(id);
 
             if (hotel == null)
             {
                 return NotFound();
             }
 
-            return hotel;
+            return _mapper.Map<GetHotel>(hotel);
         }
 
         // PUT: api/Hotels/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutHotel(int id, Hotel hotel)
+        public async Task<IActionResult> PutHotel(int id, GetHotel updateHotel)
         {
-            if (id != hotel.Id)
+            if (id != updateHotel.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(hotel).State = EntityState.Modified;
+            var hotel = await _hotelsRepository.GetAsync(id);
+
+            if (hotel == null)
+            {
+                return NotFound();
+            }
+
+            _mapper.Map(updateHotel, hotel);
 
             try
             {
-                await _context.SaveChangesAsync();
+                await _hotelsRepository.UpdateAsync(hotel);
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!HotelExists(id))
+                if (!await HotelExists(id))
                 {
                     return NotFound();
                 }
@@ -69,12 +81,12 @@ namespace BlueberryMuffin.Controllers
         }
 
         // POST: api/Hotels
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Hotel>> PostHotel(Hotel hotel)
+        public async Task<ActionResult<Hotel>> PostHotel(CreateHotel createHotel)
         {
-            _context.Hotels.Add(hotel);
-            await _context.SaveChangesAsync();
+            var hotel = _mapper.Map<Hotel>(createHotel);
+
+            await _hotelsRepository.AddAsync(hotel);
 
             return CreatedAtAction("GetHotel", new { id = hotel.Id }, hotel);
         }
@@ -83,21 +95,21 @@ namespace BlueberryMuffin.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteHotel(int id)
         {
-            var hotel = await _context.Hotels.FindAsync(id);
+            var hotel = await _hotelsRepository.GetAsync(id);
+
             if (hotel == null)
             {
                 return NotFound();
             }
 
-            _context.Hotels.Remove(hotel);
-            await _context.SaveChangesAsync();
+            await _hotelsRepository.DeleteAsync(id);
 
             return NoContent();
         }
 
-        private bool HotelExists(int id)
+        private async Task<bool> HotelExists(int id)
         {
-            return _context.Hotels.Any(e => e.Id == id);
+            return await _hotelsRepository.Exists(id);
         }
     }
 }
