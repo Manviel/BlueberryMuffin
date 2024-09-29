@@ -1,9 +1,10 @@
 ﻿using BlueberryMuffin.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace BlueberryMuffin.Data
 {
-    public class BlueberryDbContext : DbContext
+    public class BlueberryDbContext : IdentityDbContext<ApiUser>
     {
         public BlueberryDbContext(DbContextOptions options) : base(options)
         {

@@ -9,10 +9,8 @@
     {
     }
 
-    public class CountryDetails : BaseCountry
+    public class CountryDetails : GetCountry
     {
-        public int Id { get; set; }
-
         public IList<GetHotel> Hotels { get; set; }
     }
 }
