@@ -28,3 +28,9 @@ Task - A task in C# is used to implement Task-based Asynchronous Programming. Th
 
 ActionResult - An action is capable of returning a specific data type. When multiple return types are possible, it's common to return ActionResult, IActionResult or ActionResult<T>, where T represents the data type to be returned.
 
+### Resources
+
+- [JwtRegisteredClaimNames](https://learn.microsoft.com/en-us/dotnet/api/system.identitymodel.tokens.jwt.jwtregisteredclaimnames?view=msal-web-dotnet-latest)
+
+- [TokenValidationParameters](https://learn.microsoft.com/en-us/dotnet/api/microsoft.identitymodel.tokens.tokenvalidationparameters?view=msal-web-dotnet-latest)
+

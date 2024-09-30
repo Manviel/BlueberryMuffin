@@ -14,6 +14,8 @@ namespace BlueberryMuffin.Configurations
 
             CreateMap<Hotel, GetHotel>().ReverseMap();
             CreateMap<Hotel, CreateHotel>().ReverseMap();
+
+            CreateMap<AccountDetails, ApiUser>().ReverseMap();
         }
     }
 }
