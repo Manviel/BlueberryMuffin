@@ -92,9 +92,9 @@ namespace BlueberryMuffin.Contracts
                 return null;
             }
 
-            var isValidToken = await _userManager.VerifyUserTokenAsync(user, AppSettings.LoginProviderName, AppSettings.RefreshToken, request.RefreshToken);
+            var isValidRefreshToken = await _userManager.VerifyUserTokenAsync(user, AppSettings.LoginProviderName, AppSettings.RefreshToken, request.RefreshToken);
 
-            if (isValidToken)
+            if (isValidRefreshToken)
             {
                 var token = await GenerateToken(user);
 
