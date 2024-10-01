@@ -4,6 +4,7 @@ using BlueberryMuffin.Data;
 using BlueberryMuffin.Models;
 using AutoMapper;
 using BlueberryMuffin.Contracts;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BlueberryMuffin.Controllers
 {
@@ -45,6 +46,7 @@ namespace BlueberryMuffin.Controllers
 
         // PUT: api/Countries/5
         [HttpPut("{id}")]
+        [Authorize]
         public async Task<IActionResult> PutCountry(int id, GetCountry updateCountry)
         {
             if (id != updateCountry.Id)
@@ -82,6 +84,7 @@ namespace BlueberryMuffin.Controllers
 
         // POST: api/Countries
         [HttpPost]
+        [Authorize]
         public async Task<ActionResult<Country>> PostCountry(CreateCountry createCountry)
         {
             var country = _mapper.Map<Country>(createCountry);
@@ -93,6 +96,7 @@ namespace BlueberryMuffin.Controllers
 
         // DELETE: api/Countries/5
         [HttpDelete("{id}")]
+        [Authorize]
         public async Task<IActionResult> DeleteCountry(int id)
         {
             var country = await _countriesRepositiry.GetAsync(id);

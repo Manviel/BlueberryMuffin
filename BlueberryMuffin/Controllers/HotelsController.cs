@@ -4,11 +4,13 @@ using BlueberryMuffin.Models;
 using BlueberryMuffin.Contracts;
 using AutoMapper;
 using BlueberryMuffin.Data;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BlueberryMuffin.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class HotelsController : ControllerBase
     {
         private readonly IHotelsRepository _hotelsRepository;

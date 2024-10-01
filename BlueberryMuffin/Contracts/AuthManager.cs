@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
+using BlueberryMuffin.Configurations;
 using BlueberryMuffin.Data;
+using BlueberryMuffin.Data.Seeding;
 using BlueberryMuffin.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
@@ -57,7 +59,7 @@ namespace BlueberryMuffin.Contracts
 
             if (result.Succeeded)
             {
-                await _userManager.AddToRoleAsync(user, "User");
+                await _userManager.AddToRoleAsync(user, RoleTypes.User);
             }
 
             return result.Errors;
@@ -65,7 +67,7 @@ namespace BlueberryMuffin.Contracts
 
         private async Task<string> GenerateToken(ApiUser user)
         {
-            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JwtSettings:Key"]));
+            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration[JwtSettingsKeys.Key]));
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
             var roles = await _userManager.GetRolesAsync(user);
@@ -83,10 +85,10 @@ namespace BlueberryMuffin.Contracts
             }.Union(userClaims).Union(roleClaims);
 
             var token = new JwtSecurityToken(
-                issuer: _configuration["JwtSettings:Issuer"],
-                audience: _configuration["JwtSettings:Audience"],
+                issuer: _configuration[JwtSettingsKeys.Issuer],
+                audience: _configuration[JwtSettingsKeys.Audience],
                 claims: claims,
-                expires: DateTime.Now.AddMinutes(Convert.ToInt32(_configuration["JwtSettings:DurationInMinutes"])),
+                expires: DateTime.Now.AddMinutes(Convert.ToInt32(_configuration[JwtSettingsKeys.Duration])),
                 signingCredentials: credentials
             );
 
