@@ -14,7 +14,10 @@ namespace BlueberryMuffin.Contracts
     public interface IAuthManager
     {
         Task<IEnumerable<IdentityError>> Register(AccountDetails userDetails);
-        Task<AuthResponse> Login(LoginDetails loginDetails);
+        Task<AuthResponse?> Login(LoginDetails loginDetails);
+        Task<string> CreateRefreshToken(ApiUser user);
+        Task<AuthResponse?> VerifyRefreshToken(AuthResponse request);
+
     }
 
     public class AuthManager : IAuthManager
@@ -30,7 +33,17 @@ namespace BlueberryMuffin.Contracts
             _configuration = configuration;
         }
 
-        public async Task<AuthResponse> Login(LoginDetails loginDetails)
+        public async Task<string> CreateRefreshToken(ApiUser user)
+        {
+            await _userManager.RemoveAuthenticationTokenAsync(user, AppSettings.LoginProviderName, AppSettings.RefreshToken);
+
+            var newRefreshToken = await _userManager.GenerateUserTokenAsync(user, AppSettings.LoginProviderName, AppSettings.RefreshToken);
+            var result = await _userManager.SetAuthenticationTokenAsync(user, AppSettings.LoginProviderName, AppSettings.RefreshToken, newRefreshToken);
+
+            return newRefreshToken;
+        }
+
+        public async Task<AuthResponse?> Login(LoginDetails loginDetails)
         {
             var user = await _userManager.FindByEmailAsync(loginDetails.Email);
             bool isValidUser = await _userManager.CheckPasswordAsync(user, loginDetails.Password);
@@ -46,6 +59,7 @@ namespace BlueberryMuffin.Contracts
             {
                 Token = token,
                 UserId = user.Id,
+                RefreshToken = await CreateRefreshToken(user),
             };
         }
 
@@ -63,6 +77,38 @@ namespace BlueberryMuffin.Contracts
             }
 
             return result.Errors;
+        }
+
+        public async Task<AuthResponse?> VerifyRefreshToken(AuthResponse request)
+        {
+            var jwtSecurityTokenHandler = new JwtSecurityTokenHandler();
+            var tokenContent = jwtSecurityTokenHandler.ReadJwtToken(request.Token);
+            var username = tokenContent.Claims.ToList().FirstOrDefault(q => q.Type == JwtRegisteredClaimNames.Email)?.Value;
+
+            var user = await _userManager.FindByNameAsync(username);
+
+            if (user == null || user.Id != request.UserId)
+            {
+                return null;
+            }
+
+            var isValidToken = await _userManager.VerifyUserTokenAsync(user, AppSettings.LoginProviderName, AppSettings.RefreshToken, request.RefreshToken);
+
+            if (isValidToken)
+            {
+                var token = await GenerateToken(user);
+
+                return new AuthResponse
+                {
+                    Token = token,
+                    UserId = user.Id,
+                    RefreshToken = await CreateRefreshToken(user)
+                };
+            }
+
+            await _userManager.UpdateSecurityStampAsync(user);
+
+            return null;
         }
 
         private async Task<string> GenerateToken(ApiUser user)

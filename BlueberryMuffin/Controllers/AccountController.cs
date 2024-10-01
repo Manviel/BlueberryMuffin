@@ -1,4 +1,5 @@
 ﻿using BlueberryMuffin.Contracts;
+using BlueberryMuffin.Data;
 using BlueberryMuffin.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -41,6 +42,21 @@ namespace BlueberryMuffin.Controllers
         public async Task<ActionResult> Login([FromBody] LoginDetails userDetails)
         {
             var authResponse = await _authManager.Login(userDetails);
+
+            if (authResponse == null)
+            {
+                return Unauthorized();
+            }
+
+            return Ok(authResponse);
+        }
+
+        // POST: api/Account/refreshToken
+        [HttpPost]
+        [Route("refreshToken")]
+        public async Task<ActionResult> RefreshToken([FromBody] AuthResponse request)
+        {
+            var authResponse = await _authManager.VerifyRefreshToken(request);
 
             if (authResponse == null)
             {

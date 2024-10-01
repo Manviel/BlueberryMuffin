@@ -16,7 +16,11 @@ builder.Services.AddDbContext<BlueberryDbContext>(options =>
     options.UseSqlServer(connectionString);
 });
 
-builder.Services.AddIdentityCore<ApiUser>().AddRoles<IdentityRole>().AddEntityFrameworkStores<BlueberryDbContext>();
+builder.Services.AddIdentityCore<ApiUser>()
+    .AddRoles<IdentityRole>()
+    .AddTokenProvider<DataProtectorTokenProvider<ApiUser>>(AppSettings.LoginProviderName)
+    .AddEntityFrameworkStores<BlueberryDbContext>()
+    .AddDefaultTokenProviders();
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();

@@ -8,7 +8,9 @@
         public const string Duration = "JwtSettings:DurationInMinutes";
     }
 
-    public class AppSettings
+    public static class AppSettings
     {
+        public const string LoginProviderName = "BlueberryAPI";
+        public const string RefreshToken = "RefreshToken";
     }
 }
