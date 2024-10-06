@@ -35,7 +35,7 @@ namespace BlueberryMuffin.Middleware
             }
         }
 
-        private async Task<Task> HandleExceptionAsync(HttpContext context, Exception ex)
+        private Task<Task> HandleExceptionAsync(HttpContext context, Exception ex)
         {
             context.Response.ContentType = "application/json";
             HttpStatusCode statusCode = HttpStatusCode.InternalServerError;
@@ -57,7 +57,7 @@ namespace BlueberryMuffin.Middleware
 
             context.Response.StatusCode = (int)statusCode;
 
-            return context.Response.WriteAsync(response);
+            return Task.FromResult(context.Response.WriteAsync(response));
         }
     }
 }

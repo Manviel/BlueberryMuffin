@@ -1,3 +1,4 @@
+using Asp.Versioning;
 using BlueberryMuffin.Configurations;
 using BlueberryMuffin.Contracts;
 using BlueberryMuffin.Data;
@@ -58,6 +59,22 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
+builder.Services.AddApiVersioning(options =>
+{
+    options.AssumeDefaultVersionWhenUnspecified = true;
+    options.DefaultApiVersion = new ApiVersion(1, 0);
+    options.ReportApiVersions = true;
+    options.ApiVersionReader = ApiVersionReader.Combine(
+        new QueryStringApiVersionReader("api-version"),
+        new HeaderApiVersionReader("X-Version"),
+        new MediaTypeApiVersionReader("ver")
+    );
+}).AddApiExplorer(options =>
+{
+    options.GroupNameFormat = "'v'VVV";
+    options.SubstituteApiVersionInUrl = true;
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -67,7 +84,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseMiddleware<ExceptionMiddleware>();  
+app.UseMiddleware<ExceptionMiddleware>();
 
 app.UseHttpsRedirection();
 
