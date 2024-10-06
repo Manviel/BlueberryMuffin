@@ -10,12 +10,11 @@ namespace BlueberryMuffin.Controllers
     public class AccountController : ControllerBase
     {
         private readonly IAuthManager _authManager;
-        private readonly ILogger _logger;
 
-        public AccountController(IAuthManager authManager, ILogger logger)
+        public AccountController(IAuthManager authManager)
         {
             _authManager = authManager;
-            _logger = logger;
+
         }
 
         // POST: api/Account/register
@@ -23,28 +22,19 @@ namespace BlueberryMuffin.Controllers
         [Route("register")]
         public async Task<ActionResult> Register([FromBody] AccountDetails userDetails)
         {
-            try
+            var errors = await _authManager.Register(userDetails);
+
+            if (errors.Any())
             {
-                var errors = await _authManager.Register(userDetails);
-
-                if (errors.Any())
+                foreach (var error in errors)
                 {
-                    foreach (var error in errors)
-                    {
-                        ModelState.AddModelError(error.Code, error.Description);
-                    }
-
-                    return BadRequest(ModelState);
+                    ModelState.AddModelError(error.Code, error.Description);
                 }
 
-                return Ok();
+                return BadRequest(ModelState);
             }
-            catch (Exception ex)
-            {
-                _logger.LogWarning($"Registration attempt for {userDetails.Email}", ex);
 
-                return Problem("Something went wrong. Please contact support", statusCode: 500);
-            }
+            return Ok();
         }
 
         // POST: api/Account/register

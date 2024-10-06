@@ -1,6 +1,7 @@
 using BlueberryMuffin.Configurations;
 using BlueberryMuffin.Contracts;
 using BlueberryMuffin.Data;
+using BlueberryMuffin.Middleware;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -65,6 +66,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseMiddleware<ExceptionMiddleware>();  
 
 app.UseHttpsRedirection();
 

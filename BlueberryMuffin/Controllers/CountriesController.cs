@@ -5,6 +5,7 @@ using BlueberryMuffin.Models;
 using AutoMapper;
 using BlueberryMuffin.Contracts;
 using Microsoft.AspNetCore.Authorization;
+using BlueberryMuffin.Exceptions;
 
 namespace BlueberryMuffin.Controllers
 {
@@ -38,7 +39,7 @@ namespace BlueberryMuffin.Controllers
 
             if (country == null)
             {
-                return NotFound();
+                throw new NotFoundException(nameof(GetCountry), id);
             }
 
             return _mapper.Map<CountryDetails>(country);
@@ -58,7 +59,7 @@ namespace BlueberryMuffin.Controllers
 
             if (country == null)
             {
-                return NotFound();
+                throw new NotFoundException(nameof(PutCountry), id);
             }
 
             _mapper.Map(updateCountry, country);
@@ -71,7 +72,7 @@ namespace BlueberryMuffin.Controllers
             {
                 if (!await CountryExists(id))
                 {
-                    return NotFound();
+                    throw new NotFoundException(nameof(PutCountry), id);
                 }
                 else
                 {
@@ -103,7 +104,7 @@ namespace BlueberryMuffin.Controllers
 
             if (country == null)
             {
-                return NotFound();
+                throw new NotFoundException(nameof(DeleteCountry), id);
             }
 
             await _countriesRepositiry.DeleteAsync(id);
