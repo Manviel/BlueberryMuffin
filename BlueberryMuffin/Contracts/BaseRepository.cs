@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using BlueberryMuffin.Data;
+using BlueberryMuffin.Exceptions;
 using Microsoft.EntityFrameworkCore;
 
 namespace BlueberryMuffin.Contracts
@@ -8,10 +9,13 @@ namespace BlueberryMuffin.Contracts
     public interface IBaseRepository<T> where T : class
     {
         Task<T> GetAsync(int? id);
+        Task<TResult> GetAsync<TResult>(int? id);
         Task<List<T>> GetAllAsync();
         Task<PagedResult<TResult>> GetAllAsync<TResult>(QueryParameters queryParameters);
         Task<T> AddAsync(T entity);
+        Task<TResult> AddAsync<TSource, TResult>(TSource source);
         Task UpdateAsync(T entity);
+        Task UpdateAsync<TSource>(int id, TSource source);
         Task DeleteAsync(int id);
         Task<bool> Exists(int id);
     }
@@ -35,9 +39,24 @@ namespace BlueberryMuffin.Contracts
             return entity;
         }
 
+        public async Task<TResult> AddAsync<TSource, TResult>(TSource source)
+        {
+            var entity = _mapper.Map<T>(source);
+
+            await _context.AddAsync(entity);
+            await _context.SaveChangesAsync();
+
+            return _mapper.Map<TResult>(entity);
+        }
+
         public async Task DeleteAsync(int id)
         {
             var entity = await GetAsync(id);
+
+            if (entity is null)
+            {
+                throw new NotFoundException(typeof(T).Name, id);
+            }
 
             _context.Set<T>().Remove(entity);
 
@@ -84,8 +103,35 @@ namespace BlueberryMuffin.Contracts
             return await _context.Set<T>().FindAsync(id);
         }
 
+        public async Task<TResult> GetAsync<TResult>(int? id)
+        {
+            var result = await _context.Set<T>().FindAsync(id);
+
+            if (result is null)
+            {
+                throw new NotFoundException(typeof(T).Name, id.HasValue ? id : "No key Provided");
+            }
+
+            return _mapper.Map<TResult>(result);
+        }
+
         public async Task UpdateAsync(T entity)
         {
+            _context.Update(entity);
+
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task UpdateAsync<TSource>(int id, TSource source)
+        {
+            var entity = await GetAsync(id);
+
+            if (entity is null)
+            {
+                throw new NotFoundException(typeof(T).Name, id);
+            }
+
+            _mapper.Map(source, entity);
             _context.Update(entity);
 
             await _context.SaveChangesAsync();

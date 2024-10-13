@@ -35,14 +35,7 @@ namespace BlueberryMuffin.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<CountryDetails>> GetCountry(int id)
         {
-            var country = await _countriesRepositiry.GetDetails(id);
-
-            if (country == null)
-            {
-                throw new NotFoundException(nameof(GetCountry), id);
-            }
-
-            return _mapper.Map<CountryDetails>(country);
+            return await _countriesRepositiry.GetDetails(id);
         }
 
         // PUT: api/Countries/5
@@ -55,18 +48,9 @@ namespace BlueberryMuffin.Controllers
                 return BadRequest();
             }
 
-            var country = await _countriesRepositiry.GetAsync(id);
-
-            if (country == null)
-            {
-                throw new NotFoundException(nameof(PutCountry), id);
-            }
-
-            _mapper.Map(updateCountry, country);
-
             try
             {
-                await _countriesRepositiry.UpdateAsync(country);
+                await _countriesRepositiry.UpdateAsync(id, updateCountry);
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -88,11 +72,9 @@ namespace BlueberryMuffin.Controllers
         [Authorize]
         public async Task<ActionResult<Country>> PostCountry(CreateCountry createCountry)
         {
-            var country = _mapper.Map<Country>(createCountry);
+            var country = await _countriesRepositiry.AddAsync<CreateCountry, Country>(createCountry);
 
-            await _countriesRepositiry.AddAsync(country);
-
-            return CreatedAtAction("GetCountry", new { id = country.Id }, country);
+            return CreatedAtAction(typeof(GetCountry).Name, new { id = country.Id }, country);
         }
 
         // DELETE: api/Countries/5
@@ -100,13 +82,6 @@ namespace BlueberryMuffin.Controllers
         [Authorize]
         public async Task<IActionResult> DeleteCountry(int id)
         {
-            var country = await _countriesRepositiry.GetAsync(id);
-
-            if (country == null)
-            {
-                throw new NotFoundException(nameof(DeleteCountry), id);
-            }
-
             await _countriesRepositiry.DeleteAsync(id);
 
             return NoContent();
