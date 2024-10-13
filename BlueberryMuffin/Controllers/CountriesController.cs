@@ -6,6 +6,7 @@ using AutoMapper;
 using BlueberryMuffin.Contracts;
 using Microsoft.AspNetCore.Authorization;
 using BlueberryMuffin.Exceptions;
+using Microsoft.AspNetCore.OData.Query;
 
 namespace BlueberryMuffin.Controllers
 {
@@ -22,13 +23,12 @@ namespace BlueberryMuffin.Controllers
             _mapper = mapper;
         }
 
-        // GET: api/Countries
+        // GET: api/Countries/?StartIndex=0&PageNumber=1
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<GetCountry>>> GetCountries()
+        [EnableQuery]
+        public async Task<ActionResult<PagedResult<GetCountry>>> GetCountries([FromQuery] QueryParameters queryParameters)
         {
-            var countries = await _countriesRepositiry.GetAllAsync();
-
-            return _mapper.Map<List<GetCountry>>(countries);
+            return await _countriesRepositiry.GetAllAsync<GetCountry>(queryParameters);
         }
 
         // GET: api/Countries/5

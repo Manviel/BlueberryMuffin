@@ -24,11 +24,9 @@ namespace BlueberryMuffin.Controllers
 
         // GET: api/Hotels
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<GetHotel>>> GetHotels()
+        public async Task<ActionResult<PagedResult<GetHotel>>> GetHotels([FromQuery] QueryParameters queryParameters)
         {
-            var hotels = await _hotelsRepository.GetAllAsync();
-
-            return _mapper.Map<List<GetHotel>>(hotels);
+            return await _hotelsRepository.GetAllAsync<GetHotel>(queryParameters);
         }
 
         // GET: api/Hotels/5

@@ -5,6 +5,7 @@ using BlueberryMuffin.Data;
 using BlueberryMuffin.Middleware;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.OData;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
@@ -24,7 +25,7 @@ builder.Services.AddIdentityCore<ApiUser>()
     .AddEntityFrameworkStores<BlueberryDbContext>()
     .AddDefaultTokenProviders();
 
-builder.Services.AddControllers();
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -79,6 +80,11 @@ builder.Services.AddResponseCaching(options =>
 {
     options.MaximumBodySize = 1024;
     options.UseCaseSensitivePaths = true;
+});
+
+builder.Services.AddControllers().AddOData(options =>
+{
+    options.Select().Filter().OrderBy();
 });
 
 var app = builder.Build();

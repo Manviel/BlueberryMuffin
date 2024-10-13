@@ -1,4 +1,5 @@
-﻿using BlueberryMuffin.Data;
+﻿using AutoMapper;
+using BlueberryMuffin.Data;
 using BlueberryMuffin.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -12,8 +13,7 @@ namespace BlueberryMuffin.Contracts
     public class CountriesRepository : BaseRepository<Country>, ICountriesRepository
     {
         private readonly BlueberryDbContext _context;
-
-        public CountriesRepository(BlueberryDbContext context) : base(context)
+        public CountriesRepository(BlueberryDbContext context, IMapper mapper) : base(context, mapper)
         {
             _context = context;
         }

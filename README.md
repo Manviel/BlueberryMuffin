@@ -34,3 +34,10 @@ ActionResult - An action is capable of returning a specific data type. When mult
 
 - [TokenValidationParameters](https://learn.microsoft.com/en-us/dotnet/api/microsoft.identitymodel.tokens.tokenvalidationparameters?view=msal-web-dotnet-latest)
 
+## OData
+
+Helps make query parameters efficient.
+
+- $select = name,codename
+- $filter = name eq 'Cuba'
+- $orderby = name

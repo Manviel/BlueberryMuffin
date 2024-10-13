@@ -1,4 +1,5 @@
-﻿using BlueberryMuffin.Data;
+﻿using AutoMapper;
+using BlueberryMuffin.Data;
 using BlueberryMuffin.Models;
 
 namespace BlueberryMuffin.Contracts
@@ -10,7 +11,7 @@ namespace BlueberryMuffin.Contracts
     {
         private readonly BlueberryDbContext _context;
 
-        public HotelsRepository(BlueberryDbContext context) : base(context)
+        public HotelsRepository(BlueberryDbContext context, IMapper mapper) : base(context, mapper)
         {
             _context = context;
         }

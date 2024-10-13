@@ -1,4 +1,6 @@
-﻿using BlueberryMuffin.Data;
+﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
+using BlueberryMuffin.Data;
 using Microsoft.EntityFrameworkCore;
 
 namespace BlueberryMuffin.Contracts
@@ -7,6 +9,7 @@ namespace BlueberryMuffin.Contracts
     {
         Task<T> GetAsync(int? id);
         Task<List<T>> GetAllAsync();
+        Task<PagedResult<TResult>> GetAllAsync<TResult>(QueryParameters queryParameters);
         Task<T> AddAsync(T entity);
         Task UpdateAsync(T entity);
         Task DeleteAsync(int id);
@@ -16,10 +19,12 @@ namespace BlueberryMuffin.Contracts
     public class BaseRepository<T> : IBaseRepository<T> where T : class
     {
         private readonly BlueberryDbContext _context;
+        private readonly IMapper _mapper;
 
-        public BaseRepository(BlueberryDbContext context)
+        public BaseRepository(BlueberryDbContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         public async Task<T> AddAsync(T entity)
@@ -51,6 +56,24 @@ namespace BlueberryMuffin.Contracts
             return await _context.Set<T>().ToListAsync();
         }
 
+        public async Task<PagedResult<TResult>> GetAllAsync<TResult>(QueryParameters queryParameters)
+        {
+            var totalSize = await _context.Set<T>().CountAsync();
+            var items = await _context.Set<T>()
+                .Skip(queryParameters.StartIndex)
+                .Take(queryParameters.PageSize)
+                .ProjectTo<TResult>(_mapper.ConfigurationProvider)
+                .ToListAsync();
+
+            return new PagedResult<TResult>
+            {
+                Items = items,
+                PageNumber = queryParameters.PageNumber,
+                RecordNumber = queryParameters.PageSize,
+                TotalCount = totalSize
+            };
+        }
+
         public async Task<T> GetAsync(int? id)
         {
             if (id is null)
@@ -67,5 +90,5 @@ namespace BlueberryMuffin.Contracts
 
             await _context.SaveChangesAsync();
         }
-    }  
+    }
 }
