@@ -41,3 +41,23 @@ Helps make query parameters efficient.
 - $select = name,codename
 - $filter = name eq 'Cuba'
 - $orderby = name
+
+## Requirements
+
+> Per 14/10/2024
+
+The respondent can only fill in the survey.
+
+Admin can:
+- [ ] Manage managers
+- [ ] Assign them (other managers).
+
+Manager
+- [ ] Can Not see other survey results.
+- [ ] View assigned survey results.
+- [ ] Send report via webhook when respondent complete survey.
+- [ ] Create constructor for questions (text, multiple / single choices).
+- [ ] Validation for questions.
+- [ ] Respondent management (email + status (invited, completed, opened, disabled)).
+- [ ] Add Respondents via API and CSV import.
+- [ ] When you add Respondent they should receive invitation email.
