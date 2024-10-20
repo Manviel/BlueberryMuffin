@@ -15,6 +15,6 @@ namespace BlueberryMuffin.Data
     {
         [Required]
         [Range(1, int.MaxValue)]
-        public int CountryId { get; set; }
+        public int SurveyId { get; set; }
     }
 }

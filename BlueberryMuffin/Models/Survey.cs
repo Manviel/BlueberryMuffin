@@ -2,7 +2,7 @@
 
 namespace BlueberryMuffin.Models
 {
-    public class Country : BaseCountry
+    public class Survey : BaseSurvey
     {
         public int Id { get; set; }
 

@@ -12,14 +12,14 @@ namespace BlueberryMuffin.Data
         }
 
         public DbSet<Hotel> Hotels { get; set; }
-        public DbSet<Country> Countries { get; set; }
+        public DbSet<Survey> Surveys { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.ApplyConfiguration(new RoleConfig());
-            modelBuilder.ApplyConfiguration(new CountryConfig());
+            modelBuilder.ApplyConfiguration(new SurveyConfig());
             modelBuilder.ApplyConfiguration(new HotelConfig());
         }
     }

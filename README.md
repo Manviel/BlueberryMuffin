@@ -34,13 +34,18 @@ ActionResult - An action is capable of returning a specific data type. When mult
 
 - [TokenValidationParameters](https://learn.microsoft.com/en-us/dotnet/api/microsoft.identitymodel.tokens.tokenvalidationparameters?view=msal-web-dotnet-latest)
 
-## OData
+### OData
 
 Helps make query parameters efficient.
 
 - $select = name,codename
 - $filter = name eq 'Cuba'
 - $orderby = name
+
+### Folders
+
+- Data - for Data Transfer Objects.
+- Models - for DataBase models.
 
 ## Requirements
 
@@ -61,3 +66,7 @@ Manager
 - [ ] Respondent management (email + status (invited, completed, opened, disabled)).
 - [ ] Add Respondents via API and CSV import.
 - [ ] When you add Respondent they should receive invitation email.
+
+### Roles
+
+First, you register a `User`, and then assign roles (`Administrator` | `Manager`) to them.

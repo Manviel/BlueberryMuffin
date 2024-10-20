@@ -7,26 +7,26 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BlueberryMuffin.Contracts
 {
-    public interface ICountriesRepository : IBaseRepository<Country>
+    public interface ISurveysRepository : IBaseRepository<Survey>
     {
-        Task<CountryDetails> GetDetails(int id);
+        Task<SurveyDetails> GetDetails(int id);
     }
 
-    public class CountriesRepository : BaseRepository<Country>, ICountriesRepository
+    public class SurveysRepository : BaseRepository<Survey>, ISurveysRepository
     {
         private readonly BlueberryDbContext _context;
         private readonly IMapper _mapper;
 
-        public CountriesRepository(BlueberryDbContext context, IMapper mapper) : base(context, mapper)
+        public SurveysRepository(BlueberryDbContext context, IMapper mapper) : base(context, mapper)
         {
             _context = context;
             _mapper = mapper;
         }
 
-        public async Task<CountryDetails> GetDetails(int id)
+        public async Task<SurveyDetails> GetDetails(int id)
         {
-            var country = await _context.Countries.Include(q => q.Hotels)
-                .ProjectTo<CountryDetails>(_mapper.ConfigurationProvider)
+            var country = await _context.Surveys.Include(q => q.Hotels)
+                .ProjectTo<SurveyDetails>(_mapper.ConfigurationProvider)
                 .FirstOrDefaultAsync(q => q.Id == id);
 
             if (country == null)

@@ -7,8 +7,8 @@ namespace BlueberryMuffin.Models
     {
         public int Id { get; set; }
 
-        [ForeignKey(nameof(CountryId))]
-        public int CountryId { get; set; }
-        public Country Country { get; set; }
+        [ForeignKey(nameof(SurveyId))]
+        public int SurveyId { get; set; }
+        public Survey Survey { get; set; }
     }
 }
