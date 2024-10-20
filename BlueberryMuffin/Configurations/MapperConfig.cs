@@ -12,8 +12,8 @@ namespace BlueberryMuffin.Configurations
             CreateMap<Survey, GetSurvey>().ReverseMap();
             CreateMap<Survey, SurveyDetails>().ReverseMap();
 
-            CreateMap<Hotel, GetHotel>().ReverseMap();
-            CreateMap<Hotel, CreateHotel>().ReverseMap();
+            CreateMap<Question, GetQuestion>().ReverseMap();
+            CreateMap<Question, CreateQuestion>().ReverseMap();
 
             CreateMap<AccountDetails, ApiUser>().ReverseMap();
         }

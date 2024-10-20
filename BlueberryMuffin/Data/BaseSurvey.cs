@@ -20,6 +20,6 @@ namespace BlueberryMuffin.Data
 
     public class SurveyDetails : GetSurvey
     {
-        public IList<GetHotel> Hotels { get; set; }
+        public IList<GetQuestion> Questions { get; set; }
     }
 }

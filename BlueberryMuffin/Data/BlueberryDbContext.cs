@@ -11,7 +11,7 @@ namespace BlueberryMuffin.Data
         {
         }
 
-        public DbSet<Hotel> Hotels { get; set; }
+        public DbSet<Question> Questions { get; set; }
         public DbSet<Survey> Surveys { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -20,7 +20,7 @@ namespace BlueberryMuffin.Data
 
             modelBuilder.ApplyConfiguration(new RoleConfig());
             modelBuilder.ApplyConfiguration(new SurveyConfig());
-            modelBuilder.ApplyConfiguration(new HotelConfig());
+            modelBuilder.ApplyConfiguration(new QuestionConfig());
         }
     }
 }

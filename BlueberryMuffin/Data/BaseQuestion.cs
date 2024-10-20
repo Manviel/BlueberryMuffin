@@ -2,7 +2,7 @@
 
 namespace BlueberryMuffin.Data
 {
-    public abstract class BaseHotel
+    public abstract class BaseQuestion
     {
         [Required]
         public string Name { get; set; }
@@ -11,10 +11,19 @@ namespace BlueberryMuffin.Data
         public double? Rating { get; set; }
     }
 
-    public abstract class BaseHotelDetails : BaseHotel
+    public abstract class BaseQuestionDetails : BaseQuestion
     {
         [Required]
         [Range(1, int.MaxValue)]
         public int SurveyId { get; set; }
+    }
+
+    public class GetQuestion : BaseQuestionDetails
+    {
+        public int Id { get; set; }
+    }
+
+    public class CreateQuestion : BaseQuestionDetails
+    {
     }
 }

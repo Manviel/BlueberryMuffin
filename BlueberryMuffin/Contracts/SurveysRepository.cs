@@ -25,7 +25,7 @@ namespace BlueberryMuffin.Contracts
 
         public async Task<SurveyDetails> GetDetails(int id)
         {
-            var country = await _context.Surveys.Include(q => q.Hotels)
+            var country = await _context.Surveys.Include(q => q.Questions)
                 .ProjectTo<SurveyDetails>(_mapper.ConfigurationProvider)
                 .FirstOrDefaultAsync(q => q.Id == id);
 
