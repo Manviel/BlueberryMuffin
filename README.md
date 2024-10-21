@@ -70,3 +70,18 @@ Manager
 ### Roles
 
 First, you register a `User`, and then assign roles (`Administrator` | `Manager`) to them.
+
+### TODO
+
+1. Create Base Entity with:
+public int Id { get; set; } (Check best type for current DB type)
+public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
+
+2. Respondent email:
+Key for 2 fields (Email + SurveyId)
+
+3. If at least one respondend started the survey we should lock the Questions.
+
+4. Update Swagger. List possible errors.
+

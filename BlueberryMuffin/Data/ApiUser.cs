@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using BlueberryMuffin.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace BlueberryMuffin.Data
 {
@@ -6,5 +7,7 @@ namespace BlueberryMuffin.Data
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
+
+        public virtual ICollection<Survey> ManagedSurveys { get; set; }
     }
 }

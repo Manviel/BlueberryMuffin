@@ -10,5 +10,7 @@ namespace BlueberryMuffin.Models
         [ForeignKey(nameof(SurveyId))]
         public int SurveyId { get; set; }
         public Survey Survey { get; set; }
+        public virtual ICollection<SurveyResponse> Responses { get; set; }
+        public virtual ICollection<QuestionOption> Options { get; set; }
     }
 }

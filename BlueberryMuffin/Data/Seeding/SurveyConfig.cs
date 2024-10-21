@@ -8,11 +8,11 @@ namespace BlueberryMuffin.Data.Seeding
     {
         public void Configure(EntityTypeBuilder<Survey> builder)
         {
-            builder.HasData(
-                new Survey { Id = 1, Name = "Jamaica", CodeName = "JM" },
-                new Survey { Id = 2, Name = "United States", CodeName = "US" },
-                new Survey { Id = 3, Name = "Ukraine", CodeName = "UA" }
-            );
+            //builder.HasData(
+            //    new Survey { Id = 1, Name = "Jamaica", CodeName = "JM" },
+            //    new Survey { Id = 2, Name = "United States", CodeName = "US" },
+            //    new Survey { Id = 3, Name = "Ukraine", CodeName = "UA" }
+            //);
         }
     }
 }

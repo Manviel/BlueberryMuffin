@@ -2,13 +2,19 @@
 
 namespace BlueberryMuffin.Data
 {
+    public enum QuestionType
+    {
+        Text,
+        SingleChoice,
+        MultipleChoice
+    }
+
     public abstract class BaseQuestion
     {
         [Required]
-        public string Name { get; set; }
+        public string Text { get; set; }
         [Required]
-        public string Address { get; set; }
-        public double? Rating { get; set; }
+        public QuestionType Type { get; set; }
     }
 
     public abstract class BaseQuestionDetails : BaseQuestion

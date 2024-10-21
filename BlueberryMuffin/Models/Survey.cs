@@ -7,5 +7,7 @@ namespace BlueberryMuffin.Models
         public int Id { get; set; }
 
         public virtual IList<Question> Questions { get; set; }
+        public virtual ICollection<ApiUser> Managers { get; set; }
+        public virtual ICollection<Respondent> Respondents { get; set; }
     }
 }
