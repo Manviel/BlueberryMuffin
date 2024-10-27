@@ -28,8 +28,4 @@ namespace BlueberryMuffin.Data
     public class GetQuestion : BaseQuestionDetails
     {
     }
-
-    public class CreateQuestion : BaseQuestionDetails
-    {
-    }
 }

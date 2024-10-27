@@ -82,7 +82,7 @@ namespace BlueberryMuffin.Controllers
 
         // POST: api/Questions
         [HttpPost]
-        public async Task<ActionResult<Question>> PostQuestion(CreateQuestion createQuestion)
+        public async Task<ActionResult<Question>> PostQuestion(GetQuestion createQuestion)
         {
             var hotel = _mapper.Map<Question>(createQuestion);
 

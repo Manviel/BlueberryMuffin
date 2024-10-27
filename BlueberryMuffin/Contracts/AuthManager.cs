@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using BlueberryMuffin.Configurations;
 using BlueberryMuffin.Data;
-using BlueberryMuffin.Data.Seeding;
+using BlueberryMuffin.Data.Relation;
 using BlueberryMuffin.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;

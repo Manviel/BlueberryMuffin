@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace BlueberryMuffin.Data.Seeding
+namespace BlueberryMuffin.Data.Relation
 {
     public static class RoleTypes
     {

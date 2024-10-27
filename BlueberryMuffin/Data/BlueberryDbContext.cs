@@ -1,4 +1,4 @@
-﻿using BlueberryMuffin.Data.Seeding;
+﻿using BlueberryMuffin.Data.Relation;
 using BlueberryMuffin.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;

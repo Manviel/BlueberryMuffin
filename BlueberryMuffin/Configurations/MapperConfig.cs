@@ -8,12 +8,10 @@ namespace BlueberryMuffin.Configurations
     {
         public MapperConfig()
         {
-            CreateMap<Survey, CreateSurvey>().ReverseMap();
             CreateMap<Survey, GetSurvey>().ReverseMap();
             CreateMap<Survey, SurveyDetails>().ReverseMap();
 
             CreateMap<Question, GetQuestion>().ReverseMap();
-            CreateMap<Question, CreateQuestion>().ReverseMap();
 
             CreateMap<AccountDetails, ApiUser>().ReverseMap();
         }

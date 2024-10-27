@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using BlueberryMuffin.Models;
 
-namespace BlueberryMuffin.Data.Seeding
+namespace BlueberryMuffin.Data.Relation
 {
     public class SurveyConfig : IEntityTypeConfiguration<Survey>
     {

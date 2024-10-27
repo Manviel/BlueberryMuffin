@@ -21,10 +21,6 @@ namespace BlueberryMuffin.Data
     {
     }
 
-    public class CreateSurvey : BaseSurvey
-    {
-    }
-
     public class SurveyDetails : GetSurvey
     {
         public IList<GetQuestion> Questions { get; set; }
