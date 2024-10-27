@@ -10,10 +10,8 @@ namespace BlueberryMuffin.Models
         Disabled
     }
 
-    public class Respondent
+    public class Respondent : BaseEntity
     {
-        [Key]
-        public int Id { get; set; }
         [Required]
         public string Email { get; set; }
         [Required]

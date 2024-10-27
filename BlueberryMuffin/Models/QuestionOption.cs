@@ -2,11 +2,8 @@
 
 namespace BlueberryMuffin.Models
 {
-    public class QuestionOption
+    public class QuestionOption : BaseEntity
     {
-        [Key]
-        public int Id { get; set; }
-
         [Required]
         public int QuestionId { get; set; }
 

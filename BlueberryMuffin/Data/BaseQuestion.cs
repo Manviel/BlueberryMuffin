@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using BlueberryMuffin.Models;
+using System.ComponentModel.DataAnnotations;
 
 namespace BlueberryMuffin.Data
 {
@@ -9,7 +10,7 @@ namespace BlueberryMuffin.Data
         MultipleChoice
     }
 
-    public abstract class BaseQuestion
+    public abstract class BaseQuestion : BaseEntity
     {
         [Required]
         public string Text { get; set; }
@@ -26,7 +27,6 @@ namespace BlueberryMuffin.Data
 
     public class GetQuestion : BaseQuestionDetails
     {
-        public int Id { get; set; }
     }
 
     public class CreateQuestion : BaseQuestionDetails

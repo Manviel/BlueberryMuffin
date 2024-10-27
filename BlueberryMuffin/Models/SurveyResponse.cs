@@ -2,10 +2,8 @@
 
 namespace BlueberryMuffin.Models
 {
-    public class SurveyResponse
+    public class SurveyResponse : BaseEntity
     {
-        [Key]
-        public int Id { get; set; }
         [Required]
         public int RespondentId { get; set; }
         [Required]
