@@ -8,6 +8,7 @@ namespace BlueberryMuffin.Data.Seeding
     {
         public const string User = "User";
         public const string Admin = "Administrator";
+        public const string Manager = "Manager";
     }
 
     public class RoleConfig : IEntityTypeConfiguration<IdentityRole>
@@ -16,7 +17,8 @@ namespace BlueberryMuffin.Data.Seeding
         {
             builder.HasData(
                 new IdentityRole { Name = RoleTypes.Admin, NormalizedName = "ADMIN" },
-                new IdentityRole { Name = RoleTypes.User, NormalizedName = "USER" }
+                new IdentityRole { Name = RoleTypes.User, NormalizedName = "USER" },
+                new IdentityRole { Name = RoleTypes.Manager, NormalizedName = "MANAGER" }
             );
         }
     }

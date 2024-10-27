@@ -13,17 +13,15 @@ namespace BlueberryMuffin.Models
     public class Respondent : BaseEntity
     {
         [Required]
+        [EmailAddress]
         public string Email { get; set; }
-        [Required]
         public int SurveyId { get; set; }
-        [Required]
-        public RespondentStatus Status { get; set; }
-        public DateTime? InvitationSentAt { get; set; }
-        public DateTime? CompletedAt { get; set; }
-        [Required]
-        public Guid InvitationToken { get; set; } = Guid.NewGuid();
 
         public virtual Survey Survey { get; set; }
-        public virtual ICollection<SurveyResponse> Responses { get; set; }
+
+        public RespondentStatus Status { get; set; }
+
+        [Required]
+        public Guid InvitationToken { get; set; } = Guid.NewGuid();
     }
 }

@@ -1,18 +1,24 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using BlueberryMuffin.Data;
+using System.ComponentModel.DataAnnotations;
 
 namespace BlueberryMuffin.Models
 {
+    public enum ResponseStatus
+    {
+        Invited,
+        Opened,
+        Completed,
+        Disabled
+    }
+
     public class SurveyResponse : BaseEntity
     {
-        [Required]
-        public int RespondentId { get; set; }
-        [Required]
-        public int QuestionId { get; set; }
-        public string Response { get; set; }
-        [Required]
-        public DateTime SubmittedAt { get; set; } = DateTime.UtcNow;
-        
-        public virtual Respondent Respondent { get; set; }
-        public virtual Question Question { get; set; }
+        public string UserId { get; set; }
+        public int SurveyId { get; set; }
+        public ResponseStatus Status { get; set; }
+
+        public virtual Survey Survey { get; set; }
+        public virtual ApiUser User { get; set; }
+        public virtual ICollection<Answer> Answers { get; set; }
     }
 }

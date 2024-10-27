@@ -4,11 +4,10 @@ namespace BlueberryMuffin.Models
 {
     public class QuestionOption : BaseEntity
     {
-        [Required]
         public int QuestionId { get; set; }
 
         [Required]
-        public string OptionText { get; set; }
+        public string Text { get; set; }
 
         public virtual Question Question { get; set; }
     }
