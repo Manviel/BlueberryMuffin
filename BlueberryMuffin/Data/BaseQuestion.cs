@@ -18,14 +18,7 @@ namespace BlueberryMuffin.Data
         public QuestionType Type { get; set; }
     }
 
-    public abstract class BaseQuestionDetails : BaseQuestion
-    {
-        [Required]
-        [Range(1, int.MaxValue)]
-        public int SurveyId { get; set; }
-    }
-
-    public class GetQuestion : BaseQuestionDetails
+    public class GetQuestion : BaseQuestion
     {
     }
 }
