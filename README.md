@@ -54,8 +54,8 @@ Helps make query parameters efficient.
 The respondent can only fill in the survey.
 
 Admin can:
-- [ ] Manage managers
-- [ ] Assign them (other managers).
+- [ ] Manage managers.
+- [ ] Assign other managers to ?.
 
 Manager
 - [ ] Can Not see other survey results.
@@ -82,5 +82,4 @@ Key for 2 fields (Email + SurveyId)
 
 4. Update Swagger. List possible errors.
 
-5. Research about extenstion or package about Back Refs.
-
+5. Research about extension or package about Back Refs.

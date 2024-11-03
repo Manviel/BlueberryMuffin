@@ -77,6 +77,7 @@ builder.Services.AddAutoMapper(typeof(MapperConfig));
 builder.Services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
 builder.Services.AddScoped<ISurveysRepository, SurveysRepository>();
 builder.Services.AddScoped<IQuestionsRepository, QuestionsRepository>();
+builder.Services.AddScoped<IUsersRepository, UsersRepository>();
 builder.Services.AddScoped<IAuthManager, AuthManager>();
 
 builder.Services.AddAuthentication(options =>
