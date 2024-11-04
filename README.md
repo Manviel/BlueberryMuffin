@@ -55,7 +55,7 @@ The respondent can only fill in the survey.
 
 Admin can:
 - [ ] Manage managers.
-- [ ] Assign other managers to ?.
+- [ ] Assign other managers to surveys.
 
 Manager
 - [ ] Can Not see other survey results.
@@ -83,3 +83,5 @@ Key for 2 fields (Email + SurveyId)
 4. Update Swagger. List possible errors.
 
 5. Research about extension or package about Back Refs.
+
+6. Create script to create Super User (root). And verify at least one Admin remains in the DB.

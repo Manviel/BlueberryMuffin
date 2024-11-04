@@ -17,7 +17,6 @@ namespace BlueberryMuffin.Contracts
         Task<AuthResponse?> Login(LoginDetails loginDetails);
         Task<string> CreateRefreshToken(ApiUser user);
         Task<AuthResponse?> VerifyRefreshToken(AuthResponse request);
-
     }
 
     public class AuthManager : IAuthManager
