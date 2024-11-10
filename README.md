@@ -18,6 +18,13 @@ Update-Database
 
 Performs migration.
 
+```
+sqllocaldb i
+sqllocaldb info mssqllocaldb
+```
+
+Check LocalDB Status.
+
 ## Usage
 
 Open https://localhost:7261/swagger/index.html to view it in the browser.
@@ -80,7 +87,7 @@ Key for 2 fields (Email + SurveyId)
 
 3. If at least one respondend started the survey we should lock the Questions.
 
-4. Update Swagger. List possible errors.
+4. ~~Update Swagger. List possible errors~~.
 
 5. Research about extension or package about Back Refs.
 
