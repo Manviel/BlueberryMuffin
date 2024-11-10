@@ -1,6 +1,4 @@
-﻿using BlueberryMuffin.Data;
-
-namespace BlueberryMuffin.Models
+﻿namespace BlueberryMuffin.Models
 {
     public class SurveyAccess
     {

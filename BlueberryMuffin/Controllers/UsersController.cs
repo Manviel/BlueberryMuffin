@@ -1,6 +1,6 @@
 ﻿using BlueberryMuffin.Contracts;
-using BlueberryMuffin.Data;
 using BlueberryMuffin.Data.Relation;
+using BlueberryMuffin.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 

@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using BlueberryMuffin.Data;
 using BlueberryMuffin.Models;
 
 namespace BlueberryMuffin.Configurations

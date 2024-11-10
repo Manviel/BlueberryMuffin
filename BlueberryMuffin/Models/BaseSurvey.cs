@@ -1,8 +1,7 @@
-﻿using BlueberryMuffin.Models;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace BlueberryMuffin.Data
+namespace BlueberryMuffin.Models
 {
     public abstract class BaseSurvey : BaseEntity
     {

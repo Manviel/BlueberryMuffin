@@ -1,7 +1,6 @@
-﻿using BlueberryMuffin.Models;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace BlueberryMuffin.Data
+namespace BlueberryMuffin.Models
 {
     public enum QuestionType
     {

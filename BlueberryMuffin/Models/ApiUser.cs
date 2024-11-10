@@ -1,7 +1,6 @@
-﻿using BlueberryMuffin.Models;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 
-namespace BlueberryMuffin.Data
+namespace BlueberryMuffin.Models
 {
     public class ApiUser : IdentityUser
     {
