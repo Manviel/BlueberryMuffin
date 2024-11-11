@@ -17,6 +17,6 @@ namespace BlueberryMuffin.Models
         public virtual SurveyResponse SurveyResponse { get; set; }
 
         public string TextAnswer { get; set; }
-        public virtual ICollection<SelectedOption> SelectedOptions { get; set; }
+        public virtual ICollection<SelectedOption> SelectedOptions { get; set; } = new HashSet<SelectedOption>();
     }
 }

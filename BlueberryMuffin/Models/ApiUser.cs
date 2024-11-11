@@ -11,7 +11,7 @@ namespace BlueberryMuffin.Models
         [InverseProperty(nameof(Survey.CreatedBy))]
         public virtual ICollection<Survey> CreatedSurveys { get; set; } = new HashSet<Survey>();
 
-        public virtual ICollection<SurveyResponse> SurveyResponses { get; set; }
-        public virtual ICollection<SurveyAccess> SurveyAccesses { get; set; }
+        public virtual ICollection<SurveyResponse> SurveyResponses { get; set; } = new HashSet<SurveyResponse>();
+        public virtual ICollection<SurveyAccess> SurveyAccesses { get; set; } = new HashSet<SurveyAccess>();
     }
 }

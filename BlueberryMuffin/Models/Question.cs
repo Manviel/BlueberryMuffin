@@ -9,7 +9,7 @@ namespace BlueberryMuffin.Models
         [ForeignKey(nameof(SurveyId))]
         public Survey Survey { get; set; }
 
-        public virtual ICollection<QuestionOption> Options { get; set; }
+        public virtual ICollection<QuestionOption> Options { get; set; } = new HashSet<QuestionOption>();
 
         [InverseProperty(nameof(Answer.Question))]
         public virtual ICollection<Answer> Answers { get; set; } = new HashSet<Answer>();
