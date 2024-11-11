@@ -13,6 +13,7 @@ namespace BlueberryMuffin.Models
     {
         [Required]
         public string Text { get; set; }
+
         [Required]
         public QuestionType Type { get; set; }
     }

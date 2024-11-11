@@ -14,12 +14,12 @@ namespace BlueberryMuffin.Controllers
     [ApiController]
     public class SurveysController : ControllerBase
     {
-        private readonly ISurveysRepository _countriesRepositiry;
+        private readonly ISurveysRepository _surveysRepository;
         private readonly IMapper _mapper;
 
-        public SurveysController(ISurveysRepository countriesRepositiry, IMapper mapper)
+        public SurveysController(ISurveysRepository surveysRepository, IMapper mapper)
         {
-            _countriesRepositiry = countriesRepositiry;
+            _surveysRepository = surveysRepository;
             _mapper = mapper;
         }
 
@@ -28,14 +28,14 @@ namespace BlueberryMuffin.Controllers
         [EnableQuery]
         public async Task<ActionResult<PagedResult<GetSurvey>>> GetSurveys([FromQuery] QueryParameters queryParameters)
         {
-            return await _countriesRepositiry.GetAllAsync<GetSurvey>(queryParameters);
+            return await _surveysRepository.GetAllAsync<GetSurvey>(queryParameters);
         }
 
         // GET: api/Surveys/5
         [HttpGet("{id}")]
         public async Task<ActionResult<SurveyDetails>> GetSurvey(int id)
         {
-            return await _countriesRepositiry.GetDetails(id);
+            return await _surveysRepository.GetDetails(id);
         }
 
         // PUT: api/Surveys/5
@@ -50,7 +50,7 @@ namespace BlueberryMuffin.Controllers
 
             try
             {
-                await _countriesRepositiry.UpdateAsync(id, updateSurvey);
+                await _surveysRepository.UpdateAsync(id, updateSurvey);
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -72,7 +72,7 @@ namespace BlueberryMuffin.Controllers
         [Authorize]
         public async Task<ActionResult<Survey>> PostSurvey(GetSurvey createSurvey)
         {
-            var country = await _countriesRepositiry.AddAsync<GetSurvey, Survey>(createSurvey);
+            var country = await _surveysRepository.AddAsync<GetSurvey, Survey>(createSurvey);
 
             return CreatedAtAction(typeof(GetSurvey).Name, new { id = country.Id }, country);
         }
@@ -82,14 +82,14 @@ namespace BlueberryMuffin.Controllers
         [Authorize]
         public async Task<IActionResult> DeleteSurvey(int id)
         {
-            await _countriesRepositiry.DeleteAsync(id);
+            await _surveysRepository.DeleteAsync(id);
 
             return NoContent();
         }
 
         private async Task<bool> SurveyExists(int id)
         {
-            return await _countriesRepositiry.Exists(id);
+            return await _surveysRepository.Exists(id);
         }
     }
 }

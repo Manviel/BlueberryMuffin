@@ -29,6 +29,18 @@ Check LocalDB Status.
 
 Open https://localhost:7261/swagger/index.html to view it in the browser.
 
+### PostSurvey 
+
+```
+{
+  "title": "Customer Satisfaction Survey",
+  "description": "This survey aims to collect feedback on our service.",
+  "createdById": "19ae493a-fb9b-40ad-bfde-85a5bcb532d7",
+  "startDate": "2024-11-12T09:00:00",
+  "endDate": "2024-11-17T17:00:00"
+}
+```
+
 ## Key Terms and Definitions
 
 Task - A task in C# is used to implement Task-based Asynchronous Programming. The Task object is typically executed asynchronously on a thread pool thread rather than synchronously on the main thread of the application.
@@ -77,6 +89,15 @@ Manager
 ### Roles
 
 First, you register a `User`, and then assign roles (`Administrator` | `Manager`) to them.
+
+#### Admin
+
+```
+{
+  "email": "admin@test.com",
+  "password": "P@s5word!"
+}
+```
 
 ### TODO
 
