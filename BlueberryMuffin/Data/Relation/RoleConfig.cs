@@ -15,11 +15,6 @@ namespace BlueberryMuffin.Data.Relation
     {
         public void Configure(EntityTypeBuilder<IdentityRole> builder)
         {
-            builder.HasData(
-                new IdentityRole { Name = RoleTypes.Admin, NormalizedName = "ADMIN" },
-                new IdentityRole { Name = RoleTypes.User, NormalizedName = "USER" },
-                new IdentityRole { Name = RoleTypes.Manager, NormalizedName = "MANAGER" }
-            );
         }
     }
 }

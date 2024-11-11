@@ -11,7 +11,7 @@ namespace BlueberryMuffin.Data.Relation
             builder.HasOne(so => so.Answer)
                 .WithMany(a => a.SelectedOptions)
                 .HasForeignKey(so => so.AnswerId)
-                .OnDelete(DeleteBehavior.NoAction);
+                .OnDelete(DeleteBehavior.Cascade);
 
             builder.HasOne(so => so.QuestionOption)
                 .WithMany()

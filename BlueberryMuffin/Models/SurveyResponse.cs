@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BlueberryMuffin.Models
 {
@@ -13,7 +14,10 @@ namespace BlueberryMuffin.Models
     public class SurveyResponse : BaseEntity
     {
         public string UserId { get; set; }
+
+        [Required]
         public int SurveyId { get; set; }
+
         public ResponseStatus Status { get; set; }
 
         [ForeignKey(nameof(SurveyId))]

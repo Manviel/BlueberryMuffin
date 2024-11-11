@@ -13,12 +13,12 @@ namespace BlueberryMuffin.Data.Relation
             builder.HasOne(sm => sm.Survey)
                 .WithMany(s => s.SurveyAccesses)
                 .HasForeignKey(sm => sm.SurveyId)
-                .OnDelete(DeleteBehavior.NoAction);
+                .OnDelete(DeleteBehavior.Cascade);
 
             builder.HasOne(sm => sm.User)
                 .WithMany(u => u.SurveyAccesses)
                 .HasForeignKey(sm => sm.UserId)
-                .OnDelete(DeleteBehavior.NoAction);
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

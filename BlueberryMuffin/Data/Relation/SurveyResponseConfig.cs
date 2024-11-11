@@ -8,8 +8,6 @@ namespace BlueberryMuffin.Data.Relation
     {
         public void Configure(EntityTypeBuilder<SurveyResponse> builder)
         {
-            builder.HasKey(sr => sr.Id);
-
             builder.HasOne(sr => sr.Survey)
                 .WithMany(s => s.Responses)
                 .HasForeignKey(sr => sr.SurveyId)
