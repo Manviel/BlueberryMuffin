@@ -13,6 +13,7 @@ namespace BlueberryMuffin.Models
         public string CreatedById { get; set; }
 
         [ForeignKey(nameof(CreatedById))]
+        [InverseProperty(nameof(ApiUser.CreatedSurveys))]
         public virtual ApiUser CreatedBy { get; set; }
     }
 

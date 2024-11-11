@@ -89,6 +89,12 @@ Key for 2 fields (Email + SurveyId)
 
 4. ~~Update Swagger. List possible errors~~.
 
-5. Research about extension or package about Back Refs.
+5. ~~Research about extension or package about Back Refs. Found only DB visualizer~~. https://learn.microsoft.com/en-us/ef/core/modeling/relationships/mapping-attributes#inversepropertyattribute
 
 6. Create script to create Super User (root). And verify at least one Admin remains in the DB.
+
+
+There is InversePropertyAttribute:
+https://learn.microsoft.com/en-us/ef/core/modeling/relationships/mapping-attributes#inversepropertyattribute
+
+How can I improve ApiUser models relation?

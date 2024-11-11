@@ -48,6 +48,9 @@ namespace BlueberryMuffin.Controllers
         /// <response code="200">Role updated successfully</response>
         [HttpPost]
         [Route("changeRole")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(string))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(string))]
+        [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(string))]
         public async Task<ActionResult> ChangeUserRole(string id, string newRole)
         {
             if (!new[] { RoleTypes.User, RoleTypes.Admin, RoleTypes.Manager }.Contains(newRole))
