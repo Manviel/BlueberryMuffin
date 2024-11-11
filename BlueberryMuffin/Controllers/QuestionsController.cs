@@ -13,12 +13,12 @@ namespace BlueberryMuffin.Controllers
     [Authorize]
     public class QuestionsController : ControllerBase
     {
-        private readonly IQuestionsRepository _hotelsRepository;
+        private readonly IQuestionsRepository _questionsRepository;
         private readonly IMapper _mapper;
 
-        public QuestionsController(IQuestionsRepository hotelsRepository, IMapper mapper)
+        public QuestionsController(IQuestionsRepository questionsRepository, IMapper mapper)
         {
-            _hotelsRepository = hotelsRepository;
+            _questionsRepository = questionsRepository;
             _mapper = mapper;
         }
 
@@ -26,21 +26,21 @@ namespace BlueberryMuffin.Controllers
         [HttpGet]
         public async Task<ActionResult<PagedResult<GetQuestion>>> GetQuestions([FromQuery] QueryParameters queryParameters)
         {
-            return await _hotelsRepository.GetAllAsync<GetQuestion>(queryParameters);
+            return await _questionsRepository.GetAllAsync<GetQuestion>(queryParameters);
         }
 
         // GET: api/Questions/5
         [HttpGet("{id}")]
         public async Task<ActionResult<GetQuestion>> GetQuestion(int id)
         {
-            var hotel = await _hotelsRepository.GetAsync(id);
+            var entity = await _questionsRepository.GetAsync(id);
 
-            if (hotel == null)
+            if (entity == null)
             {
                 return NotFound();
             }
 
-            return _mapper.Map<GetQuestion>(hotel);
+            return _mapper.Map<GetQuestion>(entity);
         }
 
         // PUT: api/Questions/5
@@ -52,18 +52,18 @@ namespace BlueberryMuffin.Controllers
                 return BadRequest();
             }
 
-            var hotel = await _hotelsRepository.GetAsync(id);
+            var entity = await _questionsRepository.GetAsync(id);
 
-            if (hotel == null)
+            if (entity == null)
             {
                 return NotFound();
             }
 
-            _mapper.Map(updateQuestion, hotel);
+            _mapper.Map(updateQuestion, entity);
 
             try
             {
-                await _hotelsRepository.UpdateAsync(hotel);
+                await _questionsRepository.UpdateAsync(entity);
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -84,32 +84,32 @@ namespace BlueberryMuffin.Controllers
         [HttpPost]
         public async Task<ActionResult<Question>> PostQuestion(GetQuestion createQuestion)
         {
-            var hotel = _mapper.Map<Question>(createQuestion);
+            var entity = _mapper.Map<Question>(createQuestion);
 
-            await _hotelsRepository.AddAsync(hotel);
+            await _questionsRepository.AddAsync(entity);
 
-            return CreatedAtAction("GetQuestion", new { id = hotel.Id }, hotel);
+            return CreatedAtAction("GetQuestion", new { id = entity.Id }, entity);
         }
 
         // DELETE: api/Questions/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteQuestion(int id)
         {
-            var hotel = await _hotelsRepository.GetAsync(id);
+            var entity = await _questionsRepository.GetAsync(id);
 
-            if (hotel == null)
+            if (entity == null)
             {
                 return NotFound();
             }
 
-            await _hotelsRepository.DeleteAsync(id);
+            await _questionsRepository.DeleteAsync(id);
 
             return NoContent();
         }
 
         private async Task<bool> QuestionExists(int id)
         {
-            return await _hotelsRepository.Exists(id);
+            return await _questionsRepository.Exists(id);
         }
     }
 }

@@ -72,9 +72,9 @@ namespace BlueberryMuffin.Controllers
         [Authorize]
         public async Task<ActionResult<Survey>> PostSurvey(GetSurvey createSurvey)
         {
-            var country = await _surveysRepository.AddAsync<GetSurvey, Survey>(createSurvey);
+            var entity = await _surveysRepository.AddAsync<GetSurvey, Survey>(createSurvey);
 
-            return CreatedAtAction(typeof(GetSurvey).Name, new { id = country.Id }, country);
+            return CreatedAtAction(typeof(GetSurvey).Name, new { id = entity.Id }, entity);
         }
 
         // DELETE: api/Surveys/5

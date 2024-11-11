@@ -25,16 +25,16 @@ namespace BlueberryMuffin.Contracts
 
         public async Task<SurveyDetails> GetDetails(int id)
         {
-            var country = await _context.Surveys.Include(q => q.Questions)
+            var entity = await _context.Surveys.Include(q => q.Questions)
                 .ProjectTo<SurveyDetails>(_mapper.ConfigurationProvider)
                 .FirstOrDefaultAsync(q => q.Id == id);
 
-            if (country == null)
+            if (entity == null)
             {
                 throw new NotFoundException(nameof(GetDetails), id);
             }
 
-            return country;
+            return entity;
         }
     }
 }
