@@ -7,6 +7,8 @@ using BlueberryMuffin.Contracts;
 using Microsoft.AspNetCore.Authorization;
 using BlueberryMuffin.Exceptions;
 using Microsoft.AspNetCore.OData.Query;
+using System.Security.Claims;
+using BlueberryMuffin.Data.Relation;
 
 namespace BlueberryMuffin.Controllers
 {
@@ -70,9 +72,18 @@ namespace BlueberryMuffin.Controllers
         // POST: api/Surveys
         [HttpPost]
         [Authorize]
-        public async Task<ActionResult<Survey>> PostSurvey(GetSurvey createSurvey)
+        public async Task<ActionResult<Survey>> PostSurvey([FromBody] GetSurvey createSurvey)
         {
-            var entity = await _surveysRepository.AddAsync<GetSurvey, Survey>(createSurvey);
+            var userId = User.FindFirstValue(IdTypes.User);
+            if (string.IsNullOrEmpty(userId))
+            {
+                return Unauthorized("User is not recognized.");
+            }
+
+            var survey = _mapper.Map<Survey>(createSurvey);
+            survey.CreatedById = userId;
+
+            var entity = await _surveysRepository.AddAsync(survey);
 
             return CreatedAtAction(typeof(GetSurvey).Name, new { id = entity.Id }, entity);
         }

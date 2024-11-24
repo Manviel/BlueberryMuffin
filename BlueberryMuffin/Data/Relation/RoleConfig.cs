@@ -11,6 +11,11 @@ namespace BlueberryMuffin.Data.Relation
         public const string Manager = "Manager";
     }
 
+    public static class IdTypes
+    {
+        public const string User = "uid";
+    }
+
     public class RoleConfig : IEntityTypeConfiguration<IdentityRole>
     {
         public void Configure(EntityTypeBuilder<IdentityRole> builder)

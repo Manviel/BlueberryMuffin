@@ -3,13 +3,16 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BlueberryMuffin.Models
 {
-    public abstract class BaseSurvey : BaseEntity
+    public class GetSurvey : BaseEntity
     {
         [Required]
         [MaxLength(255)]
         public string Title { get; set; }
         public string Description { get; set; }
+    }
 
+    public abstract class BaseSurvey : GetSurvey
+    {
         [Required]
         public string CreatedById { get; set; }
 
@@ -18,11 +21,7 @@ namespace BlueberryMuffin.Models
         public virtual ApiUser CreatedBy { get; set; }
     }
 
-    public class GetSurvey : BaseSurvey
-    {
-    }
-
-    public class SurveyDetails : GetSurvey
+    public class SurveyDetails : BaseSurvey
     {
         public IList<GetQuestion> Questions { get; set; }
     }

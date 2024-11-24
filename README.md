@@ -35,9 +35,6 @@ Open https://localhost:7261/swagger/index.html to view it in the browser.
 {
   "title": "Customer Satisfaction Survey",
   "description": "This survey aims to collect feedback on our service.",
-  "createdById": "19ae493a-fb9b-40ad-bfde-85a5bcb532d7",
-  "startDate": "2024-11-12T09:00:00",
-  "endDate": "2024-11-17T17:00:00"
 }
 ```
 
