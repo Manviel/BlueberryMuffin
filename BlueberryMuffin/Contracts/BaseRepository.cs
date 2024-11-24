@@ -2,6 +2,7 @@
 using AutoMapper.QueryableExtensions;
 using BlueberryMuffin.Data;
 using BlueberryMuffin.Exceptions;
+using BlueberryMuffin.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace BlueberryMuffin.Contracts
@@ -132,9 +133,13 @@ namespace BlueberryMuffin.Contracts
             }
 
             _mapper.Map(source, entity);
-            _context.Update(entity);
 
-            await _context.SaveChangesAsync();
+            if (entity is BaseEntity baseEntity)
+            {
+                _context.Entry(baseEntity).Property(x => x.CreatedAt).IsModified = false;
+            }
+
+            await UpdateAsync(entity);
         }
     }
 }

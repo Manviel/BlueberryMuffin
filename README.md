@@ -29,12 +29,24 @@ Check LocalDB Status.
 
 Open https://localhost:7261/swagger/index.html to view it in the browser.
 
-### PostSurvey 
+### Survey
+
+#### Post 
 
 ```
 {
   "title": "Customer Satisfaction Survey",
   "description": "This survey aims to collect feedback on our service.",
+}
+```
+
+#### Put
+
+```
+{
+  "id": 1,
+  "title": "NPS",
+  "description": "Net promoter score."
 }
 ```
 

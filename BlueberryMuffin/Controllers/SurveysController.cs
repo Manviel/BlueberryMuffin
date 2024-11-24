@@ -43,7 +43,7 @@ namespace BlueberryMuffin.Controllers
         // PUT: api/Surveys/5
         [HttpPut("{id}")]
         [Authorize]
-        public async Task<IActionResult> PutSurvey(int id, GetSurvey updateSurvey)
+        public async Task<IActionResult> PutSurvey(int id, [FromBody] GetSurvey updateSurvey)
         {
             if (id != updateSurvey.Id)
             {
