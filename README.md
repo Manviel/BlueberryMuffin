@@ -10,6 +10,8 @@ In the project directory, open it through Visual Studio and go to `Tools / NuGet
 Add-Migration Name
 ```
 
+> -IgnoreChanges - Force
+
 Creates a migration.
 
 ```
@@ -39,8 +41,15 @@ ActionResult - returning a specific data type. When multiple return types are po
 
 DbSet - represents a collection of all entities of a given type in your database. It acts as an in-memory representation of a database table, allowing you to perform CRUD operations on the data.
 
+ICollection - provides basic functionality for working with collections, but doesn't guarantee any specific ordering or indexing of elements.
+
+IList - Designed for collections where elements have a specific order and can be accessed by their position (index).
+
+HashSet - powerful and efficient collection for storing unique elements when order is not important and fast lookups are required. 
 
 ### Resources
+
+> `virtual` enables polymorphism through method overriding.
 
 - [JwtRegisteredClaimNames](https://learn.microsoft.com/en-us/dotnet/api/system.identitymodel.tokens.jwt.jwtregisteredclaimnames?view=msal-web-dotnet-latest)
 
