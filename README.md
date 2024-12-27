@@ -1,6 +1,6 @@
 # Web API Development with ASP.NET Core 8
 
-This project was bootstrapped with .NET Core.
+This project was bootstrapped with .NET Core. Code-First Workflow.
 
 ## Available Scripts
 
@@ -19,48 +19,36 @@ Update-Database
 Performs migration.
 
 ```
+Remove-Migration
+```
+
+Undo the last migration if something went wrong.
+
+```
 sqllocaldb i
 sqllocaldb info mssqllocaldb
 ```
 
 Check LocalDB Status.
 
-## Usage
-
-Open https://localhost:7261/swagger/index.html to view it in the browser.
-
-### Survey
-
-#### Post 
-
-```
-{
-  "title": "Customer Satisfaction Survey",
-  "description": "This survey aims to collect feedback on our service.",
-}
-```
-
-#### Put
-
-```
-{
-  "id": 1,
-  "title": "NPS",
-  "description": "Net promoter score."
-}
-```
-
 ## Key Terms and Definitions
 
-Task - A task in C# is used to implement Task-based Asynchronous Programming. The Task object is typically executed asynchronously on a thread pool thread rather than synchronously on the main thread of the application.
+Task - used to implement Task-based Asynchronous Programming. The Task object is typically executed asynchronously on a thread pool thread rather than synchronously on the main thread of the application.
 
-ActionResult - An action is capable of returning a specific data type. When multiple return types are possible, it's common to return ActionResult, IActionResult or ActionResult<T>, where T represents the data type to be returned.
+ActionResult - returning a specific data type. When multiple return types are possible, it's common to return ActionResult, IActionResult or ActionResult<T>, where T represents the data type to be returned.
+
+DbSet - represents a collection of all entities of a given type in your database. It acts as an in-memory representation of a database table, allowing you to perform CRUD operations on the data.
+
 
 ### Resources
 
 - [JwtRegisteredClaimNames](https://learn.microsoft.com/en-us/dotnet/api/system.identitymodel.tokens.jwt.jwtregisteredclaimnames?view=msal-web-dotnet-latest)
 
 - [TokenValidationParameters](https://learn.microsoft.com/en-us/dotnet/api/microsoft.identitymodel.tokens.tokenvalidationparameters?view=msal-web-dotnet-latest)
+
+## Usage
+
+Open https://localhost:7261/swagger/index.html to view it in the browser.
 
 ### OData
 
@@ -74,6 +62,40 @@ Helps make query parameters efficient.
 
 - Data - for Data Transfer Objects.
 - Models - for DataBase models.
+
+### Survey
+
+#### Post 
+
+```
+{
+  "title": "Customer Satisfaction Survey",
+  "description": "This survey aims to collect feedback on our service."
+}
+```
+
+#### Put
+
+```
+{
+  "id": 1,
+  "title": "NPS",
+  "description": "Net promoter score."
+}
+```
+
+### Roles
+
+First, you register a `User`, and then assign roles (`Administrator` | `Manager`) to them.
+
+#### Admin
+
+```
+{
+  "email": "admin@test.com",
+  "password": "P@s5word!"
+}
+```
 
 ## Requirements
 
@@ -95,19 +117,6 @@ Manager
 - [ ] Add Respondents via API and CSV import.
 - [ ] When you add Respondent they should receive invitation email.
 
-### Roles
-
-First, you register a `User`, and then assign roles (`Administrator` | `Manager`) to them.
-
-#### Admin
-
-```
-{
-  "email": "admin@test.com",
-  "password": "P@s5word!"
-}
-```
-
 ### TODO
 
 1. ~~Create Base Entity~~.
@@ -122,3 +131,5 @@ Key for 2 fields (Email + SurveyId)
 5. ~~Research about extension or package about [Back Refs](https://learn.microsoft.com/en-us/ef/core/modeling/relationships/mapping-attributes#inversepropertyattribute)~~.
 
 6. Create script to create Super User (root). And verify at least one Admin remains in the DB.
+
+7. ~~Check how to properly set CreatedAt and UpdatedAt on the DB level or the Model level. HasDefaultValueSql("GETUTCDATE()");~~
