@@ -6,32 +6,34 @@ This project was bootstrapped with .NET Core. Code-First Workflow.
 
 In the project directory, open it through Visual Studio and go to `Tools / NuGet Package Manager / Console`:
 
+### Creates a migration.
+
 ```
 Add-Migration Name
 ```
 
-> -IgnoreChanges - Force
+> -IgnoreChanges -Force to override
 
-Creates a migration.
+### Performs migration.
 
 ```
 Update-Database
 ```
 
-Performs migration.
+> -TargetMigration:NameWithoutDateTime to revert (downgrade)
+
+### Undo the last migration if something went wrong 
 
 ```
 Remove-Migration
 ```
 
-Undo the last migration if something went wrong.
+### Check LocalDB Status
 
 ```
 sqllocaldb i
 sqllocaldb info mssqllocaldb
 ```
-
-Check LocalDB Status.
 
 ## Key Terms and Definitions
 
