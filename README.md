@@ -37,17 +37,21 @@ sqllocaldb info mssqllocaldb
 
 ## Key Terms and Definitions
 
-Task - used to implement Task-based Asynchronous Programming. The Task object is typically executed asynchronously on a thread pool thread rather than synchronously on the main thread of the application.
+**Task** - used to implement Task-based Asynchronous Programming. The Task object is typically executed asynchronously on a thread pool thread rather than synchronously on the main thread of the application.
 
-ActionResult - returning a specific data type. When multiple return types are possible, it's common to return ActionResult, IActionResult or ActionResult<T>, where T represents the data type to be returned.
+**ActionResult** - returning a specific data type. When multiple return types are possible, it's common to return ActionResult, IActionResult or ActionResult<T>, where T represents the data type to be returned.
 
-DbSet - represents a collection of all entities of a given type in your database. It acts as an in-memory representation of a database table, allowing you to perform CRUD operations on the data.
+**DbSet** - represents a collection of all entities of a given type in your database. It acts as an in-memory representation of a database table, allowing you to perform CRUD operations on the data.
 
-ICollection - provides basic functionality for working with collections, but doesn't guarantee any specific ordering or indexing of elements.
+**ICollection** - provides basic functionality for working with collections, but doesn't guarantee any specific ordering or indexing of elements.
 
-IList - Designed for collections where elements have a specific order and can be accessed by their position (index).
+**IList** - Designed for collections where elements have a specific order and can be accessed by their position (index).
 
-HashSet - powerful and efficient collection for storing unique elements when order is not important and fast lookups are required. 
+**HashSet** - powerful and efficient collection for storing unique elements when order is not important and fast lookups are required.
+
+**Data Annotation** - when you use `[Required]` and etc.
+
+**Fluent API** - when you use `modelBuilder.Entity`. Fluent because chainable.
 
 ### Resources
 
